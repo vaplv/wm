@@ -1,37 +1,11 @@
-/*
- * Copyright (c) 2013 Vincent Forest
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
- * EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 #include "wm_glfw_device_c.h"
-#include "wm.h"
-#include "wm_device.h"
-#include "wm_window.h"
+#include "../wm.h"
+#include "../wm_device.h"
+#include "../wm_window.h"
 
-#include <sys/mem_allocator.h>
-#include <sys/ref_count.h>
-#include <sys/sys.h>
+#include <snlsys/mem_allocator.h>
+#include <snlsys/ref_count.h>
+#include <snlsys/snlsys.h>
 
 #include <GL/glfw.h>
 #include <limits.h>
@@ -70,7 +44,7 @@ release_window(struct ref* ref)
  * Window functions.
  *
  ******************************************************************************/
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_create_window
   (struct wm_device* device,
    const struct wm_window_desc* desc,
@@ -123,7 +97,7 @@ error:
   goto exit;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_window_ref_get(struct wm_window* win)
 {
   if(!win)
@@ -132,7 +106,7 @@ wm_window_ref_get(struct wm_window* win)
   return WM_NO_ERROR;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_window_ref_put(struct wm_window* win)
 {
   if(!win)
@@ -141,7 +115,7 @@ wm_window_ref_put(struct wm_window* win)
   return WM_NO_ERROR;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_swap(struct wm_window* win)
 {
   if(!win)
@@ -150,7 +124,7 @@ wm_swap(struct wm_window* win)
   return WM_NO_ERROR;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_get_window_desc
   (struct wm_window* win,
    struct wm_window_desc* desc)

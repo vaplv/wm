@@ -1,40 +1,14 @@
-/*
- * Copyright (c) 2013 Vincent Forest
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR IMPLIED
- * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO
- * EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
- * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-#include "glfw/wm_glfw_device_c.h"
-#include "glfw/wm_glfw_error.h"
-#include "glfw/wm_glfw_input.h"
-#include "wm.h"
-#include "wm_error.h"
-#include "wm_input.h"
+#include "wm_glfw_device_c.h"
+#include "wm_glfw_error.h"
+#include "wm_glfw_input.h"
+#include "../wm.h"
+#include "../wm_error.h"
+#include "../wm_input.h"
 
 #include <sl/sl.h>
 #include <sl/sl_hash_table.h>
 #include <sl/sl_flat_set.h>
-#include <sys/sys.h>
+#include <snlsys/snlsys.h>
 
 #include <GL/glfw.h>
 #include <stdbool.h>
@@ -373,7 +347,7 @@ glfw_mouse_wheel_callback(int pos)
  * Input implementation.
  *
  ******************************************************************************/
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_get_key_state
   (struct wm_device* device,
    enum wm_key key,
@@ -402,7 +376,7 @@ error:
   goto exit;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_get_mouse_button_state
   (struct wm_device* device,
    enum wm_mouse_button button,
@@ -428,7 +402,7 @@ error:
   goto exit;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_get_mouse_position
   (struct wm_device* device,
    int* out_x,
@@ -450,7 +424,7 @@ wm_get_mouse_position
   return WM_NO_ERROR;
 }
 
-EXPORT_SYM enum wm_error
+enum wm_error
 wm_get_mouse_wheel(struct wm_device* device, int* pos)
 {
   if(UNLIKELY(!device || !pos))
@@ -460,7 +434,7 @@ wm_get_mouse_wheel(struct wm_device* device, int* pos)
 }
 
 #define DECLARE_ATTACH_CLBK_FUNC(name, glfw_name, ...) \
-  EXPORT_SYM enum wm_error \
+  enum wm_error \
   CONCAT(CONCAT(wm_attach_, name), _callback) \
     (struct wm_device* device, \
      void (*func)(__VA_ARGS__), \
@@ -496,7 +470,7 @@ DECLARE_ATTACH_CLBK_FUNC
 
 
 #define DECLARE_DETACH_CLBK_FUNC(name, glfw_name, ...) \
-  EXPORT_SYM enum wm_error \
+  enum wm_error \
   CONCAT(CONCAT(wm_detach_, name), _callback) \
     (struct wm_device* device, \
      void (*func)(__VA_ARGS__), \
@@ -530,7 +504,7 @@ DECLARE_DETACH_CLBK_FUNC
 
 
 #define DECLARE_IS_CLBK_ATTACHED_FUNC(name, ...) \
-  EXPORT_SYM enum wm_error \
+  enum wm_error \
   CONCAT(CONCAT(wm_is_, name), _callback_attached) \
     (struct wm_device* device, \
      void (*func)(__VA_ARGS__), \
