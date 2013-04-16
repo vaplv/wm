@@ -6,8 +6,8 @@
 #include <stdbool.h>
 
 struct wm_window_desc {
-  unsigned int width;
-  unsigned int height;
+  int width;
+  int height;
   bool fullscreen;
 };
 

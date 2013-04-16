@@ -138,8 +138,8 @@ wm_get_window_desc
   glfwGetWindowSize(&width, &height);
   ASSERT(width >= 0 && height >= 0);
 
-  desc->width = (unsigned int)width;
-  desc->height = (unsigned int)height;
+  desc->width = width;
+  desc->height = height;
   desc->fullscreen = win->fullscreen;
   return WM_NO_ERROR;
 }
